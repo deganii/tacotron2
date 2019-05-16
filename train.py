@@ -194,6 +194,12 @@ def train(output_directory, log_directory, checkpoint_path, warm_start, n_gpus,
         if warm_start:
             model = warm_start_model(
                 checkpoint_path, model, hparams.ignore_layers)
+            if hparams.freeze_encoder:
+               for p in model.encoder.parameters():
+                    p.requires_grad = False
+            if hparams.freeze_decoder:
+               for p in model.decoder.parameters():
+                    p.requires_grad = False
         else:
             model, optimizer, _learning_rate, iteration = load_checkpoint(
                 checkpoint_path, model, optimizer)

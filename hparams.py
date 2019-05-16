@@ -19,8 +19,11 @@ def create_hparams(hparams_string=None, verbose=False):
         dist_url="tcp://localhost:54321",
         cudnn_enabled=True,
         cudnn_benchmark=False,
+        # note: this "ignore" means to ignore loading weights, not to ignore training (i.e. freeze the layer)
         # ignore_layers=['embedding.weight'],
 	ignore_layers=['DEADBEEF'],
+	freeze_encoder=False,
+	freeze_decoder=False,
 
         ################################
         # Data Parameters             #
