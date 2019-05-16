@@ -5,6 +5,7 @@ import math
 from numpy import finfo
 
 import torch
+import torch.nn as nn
 from distributed import apply_gradient_allreduce
 import torch.distributed as dist
 from torch.utils.data.distributed import DistributedSampler
@@ -78,6 +79,7 @@ def load_model(hparams):
     if hparams.distributed_run:
         model = apply_gradient_allreduce(model)
 
+    #model = nn.DataParallel(model)
     return model
 
 
@@ -200,6 +202,7 @@ def train(output_directory, log_directory, checkpoint_path, warm_start, n_gpus,
             iteration += 1  # next iteration is iteration + 1
             epoch_offset = max(0, int(iteration / len(train_loader)))
 
+    # model = nn.DataParallel(model)    
     model.train()
     is_overflow = False
     # ================ MAIN TRAINNIG LOOP! ===================

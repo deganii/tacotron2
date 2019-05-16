@@ -19,14 +19,19 @@ def create_hparams(hparams_string=None, verbose=False):
         dist_url="tcp://localhost:54321",
         cudnn_enabled=True,
         cudnn_benchmark=False,
-        ignore_layers=['embedding.weight'],
+        # ignore_layers=['embedding.weight'],
+	ignore_layers=['DEADBEEF'],
 
         ################################
         # Data Parameters             #
         ################################
         load_mel_from_disk=False,
-        training_files='filelists/ljs_audio_text_train_filelist.txt',
-        validation_files='filelists/ljs_audio_text_val_filelist.txt',
+        #training_files='filelists/ljs_audio_text_train_filelist.txt',
+        #validation_files='filelists/ljs_audio_text_val_filelist.txt',
+        #training_files='filelists/ocw_train.txt',
+        #validation_files='filelists/ocw_val.txt',
+        training_files='/home/ubuntu/MIT-TTS/data/OCW_0.2/filelists/ocw_train.txt',
+        validation_files='/home/ubuntu/MIT-TTS/data/OCW_0.2/filelists/ocw_val.txt',
         text_cleaners=['english_cleaners'],
 
         ################################
@@ -81,7 +86,7 @@ def create_hparams(hparams_string=None, verbose=False):
         learning_rate=1e-3,
         weight_decay=1e-6,
         grad_clip_thresh=1.0,
-        batch_size=64,
+        batch_size=32,
         mask_padding=True  # set model's padded outputs to padded values
     )
 
